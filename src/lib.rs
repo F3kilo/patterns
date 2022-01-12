@@ -1,5 +1,6 @@
 pub mod factory;
 pub mod decorator;
+pub mod visitor;
 
 #[cfg(test)]
 mod tests {
