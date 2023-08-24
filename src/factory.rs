@@ -70,14 +70,13 @@ pub mod sales_lib {
     }
 
     pub trait Analizer {
-        fn analize(&self, sales: impl Reporter) -> usize;
+        fn analize(&self, sales: String) -> usize;
     }
 
     pub struct JsonAnalizer;
 
     impl Analizer for JsonAnalizer {
-        fn analize(&self, sales: impl Reporter) -> usize {
-            let report = sales.report();
+        fn analize(&self, report: String) -> usize {
             if let Some(ch) = report.chars().next() {
                 if ch != '{' {
                     panic!("bad json")
@@ -90,9 +89,7 @@ pub mod sales_lib {
     pub struct XmlAnalizer;
 
     impl Analizer for XmlAnalizer {
-        fn analize(&self, reporter: impl Reporter) -> usize {
-            let report = reporter.report();
-
+        fn analize(&self, report: String) -> usize {
             if let Some(ch) = report.chars().next() {
                 if ch != '<' {
                     panic!("bad xml")
