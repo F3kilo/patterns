@@ -3,18 +3,14 @@ use patterns::factory::SalesFactory;
 
 fn main() {
     let json_factory = patterns::factory::json_factory();
-    let reporter = json_factory.create_reporter();
-    let anilizer = json_factory.create_analizer();
-    println!(
-        "JSON analize result: {}",
-        anilizer.analize(reporter.report())
-    );
+    println!("JSON analize result: {}", analyze_report(json_factory));
 
     let xml_factory = patterns::factory::xml_factory();
-    let reporter = xml_factory.create_reporter();
-    let anilizer = xml_factory.create_analizer();
-    println!(
-        "XML analize result: {}",
-        anilizer.analize(reporter.report())
-    );
+    println!("XML analize result: {}", analyze_report(xml_factory));
+}
+
+fn analyze_report(factory: impl SalesFactory) -> usize {
+    let reporter = factory.create_reporter();
+    let anilizer = factory.create_analizer();
+    anilizer.analize(reporter.report())
 }
